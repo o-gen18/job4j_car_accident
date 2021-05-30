@@ -6,24 +6,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Accident</title>
 </head>
 <body>
+<header>
+    <h1 class="header">
+        Accident table
+    </h1>
+</header>
 <div class="container-fluid">
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">№</th>
-                <th scope="col">User's name</th>
+                <th scope="col">Accident</th>
+                <th scope="col">Statement</th>
+                <th scope="col">Address</th>
             </tr>
         </thead>
         <tbody>
             <c:set var="counter" value="0" scope="page"/>
-            <c:forEach items="${users}" var="user">
+            <c:forEach items="${accidents}" var="accident">
                 <c:set var="counter" value="${counter + 1}" scope="page"/>
             <tr>
                 <th scope="row"><c:out value="${counter}"/></th>
-                <td><c:out value="${user}"/></td>
+                <td><c:out value="${accident.name}"/></td>
+                <td><c:out value="${accident.text}"/></td>
+                <td><c:out value="${accident.address}"/></td>
             </tr>
             </c:forEach>
         </tbody>
