@@ -24,7 +24,7 @@ public class AccidentControl {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident) {
-        accidents.addAccident(accident);
+        accidents.saveAccident(accident);
         return "redirect:/";
     }
 
@@ -32,11 +32,5 @@ public class AccidentControl {
     public String edit(Model model, @RequestParam int id) {
         model.addAttribute("accident", accidents.getAccidentById(id));
         return "edit";
-    }
-
-    @PostMapping("/replace")
-    public String edit(@ModelAttribute Accident accident) {
-        accidents.replaceAccident(accident);
-        return "redirect:/";
     }
 }

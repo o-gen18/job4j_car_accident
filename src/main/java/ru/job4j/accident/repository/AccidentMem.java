@@ -18,22 +18,15 @@ public class AccidentMem {
     }
 
     /**
-     * Adds an accident to the storage.
+     * Puts an accident to the storage.
      * @param accident concrete accident object.
-     * @return unique generated index of an accident.
+     * @return Previous accident object associated with the given id or null if there is no
+     * association.
      */
-    public Accident addAccident(Accident accident) {
-        accident.setId(index.incrementAndGet());
-        accidents.put(accident.getId(), accident);
-        return accident;
-    }
-
-    /**
-     * Replaces the existing accident object by the given one.
-     * @param accident An edited accident object that is about to replace the previous one.
-     * @return Previous accident object associated with the given key.
-     */
-    public Accident replaceAccident(Accident accident) {
+    public Accident saveAccident(Accident accident) {
+        if (accident.getId() == 0) {
+            accident.setId(index.incrementAndGet());
+        }
         return accidents.put(accident.getId(), accident);
     }
 

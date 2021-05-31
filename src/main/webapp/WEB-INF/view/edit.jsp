@@ -20,7 +20,7 @@
     <div class="card mx-auto border-0" style="width: 50%">
         <h2 class="h2 mx-auto" style="display: inline">Editing the existing accident record</h2>
         <div class="card-body border border-primary rounded">
-            <form action="<c:url value='/replace'/>" method="post">
+            <form action="<c:url value='/save'/>" method="post">
                 <table class="table">
                     <input hidden name="id" value="<c:out value="${accident.id}"/>">
                     <tr>
