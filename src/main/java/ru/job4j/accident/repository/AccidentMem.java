@@ -12,6 +12,11 @@ public class AccidentMem {
     private Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private AtomicInteger index = new AtomicInteger(0);
 
+
+    public Accident getAccidentById(int id) {
+        return accidents.get(id);
+    }
+
     /**
      * Adds an accident to the storage.
      * @param accident concrete accident object.
@@ -21,6 +26,15 @@ public class AccidentMem {
         accident.setId(index.incrementAndGet());
         accidents.put(accident.getId(), accident);
         return accident;
+    }
+
+    /**
+     * Replaces the existing accident object by the given one.
+     * @param accident An edited accident object that is about to replace the previous one.
+     * @return Previous accident object associated with the given key.
+     */
+    public Accident replaceAccident(Accident accident) {
+        return accidents.put(accident.getId(), accident);
     }
 
     /**

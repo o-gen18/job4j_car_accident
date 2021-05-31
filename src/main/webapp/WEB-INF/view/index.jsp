@@ -10,15 +10,16 @@
     <title>Accident</title>
 </head>
 <body>
-<header>
-    <h1 class="header">
+<header class="container-fluid">
+    <h1 class="h1" align="center" style="display: inline">
         Accident table
     </h1>
+    <a class="btn btn-outline-primary" style="float: right" href="<c:url value='/create'/>">Submit a new accident</a>
 </header>
 <div class="container-fluid">
-    <table class="table">
+    <table class="table table-hover table-bordered table-sm">
         <thead>
-            <tr>
+            <tr class="table-primary">
                 <th scope="col">№</th>
                 <th scope="col">Accident</th>
                 <th scope="col">Statement</th>
@@ -29,10 +30,10 @@
             <c:set var="counter" value="0" scope="page"/>
             <c:forEach items="${accidents}" var="accident">
                 <c:set var="counter" value="${counter + 1}" scope="page"/>
-            <tr>
+            <tr class="table-secondary" >
                 <th scope="row"><c:out value="${counter}"/></th>
-                <td><c:out value="${accident.name}"/></td>
-                <td><c:out value="${accident.text}"/></td>
+                <td><a title="Click to edit this record" style="text-decoration: none; color: black" href='<c:url value="/edit?id=${accident.id}"/>'><c:out value="${accident.name}"/></a></td>
+                <td><div style="height:150px; overflow: auto"><c:out value="${accident.text}"/></div></td>
                 <td><c:out value="${accident.address}"/></td>
             </tr>
             </c:forEach>
