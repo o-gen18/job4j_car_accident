@@ -2,6 +2,7 @@ package ru.job4j.accident.repository;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,6 +13,15 @@ public class AccidentMem {
     private Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
     private AtomicInteger index = new AtomicInteger(0);
 
+    private AtomicInteger typeIndex = new AtomicInteger(0);
+
+    private Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
+
+    {
+        saveAccidentType(AccidentType.of("Vehicle and human"));
+        saveAccidentType(AccidentType.of("Vehicle and vehicle"));
+        saveAccidentType(AccidentType.of("Vehicle and bicycle"));
+    }
 
     public Accident getAccidentById(int id) {
         return accidents.get(id);
@@ -41,5 +51,20 @@ public class AccidentMem {
 
     public Map<Integer, Accident> getAccidents() {
         return accidents;
+    }
+
+    public AccidentType getTypeById(int id) {
+        return types.get(id);
+    }
+
+    public AccidentType saveAccidentType(AccidentType type) {
+        if (type.getId() == 0) {
+            type.setId(typeIndex.incrementAndGet());
+        }
+        return types.put(type.getId(), type);
+    }
+
+    public Map<Integer, AccidentType> getTypes() {
+        return types;
     }
 }

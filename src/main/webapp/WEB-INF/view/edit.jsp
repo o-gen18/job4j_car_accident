@@ -36,6 +36,21 @@
                         <td><input class="form-control" type="text" name="address" value="<c:out value="${accident.address}"/>"></td>
                     </tr>
                     <tr>
+                        <td>Type of the accident: </td>
+                        <td><select name="type.id">
+                            <c:forEach var="type" items="${types}">
+                                <c:choose>
+                                    <c:when test="${type.name eq accident.type.name}">
+                                        <option value="${type.id}" selected>${type.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${type.id}">${type.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><input class="btn btn-outline-primary" name="submit" type="submit" value="Submit"></td>
                     </tr>
                 </table>

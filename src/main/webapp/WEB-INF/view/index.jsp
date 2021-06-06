@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="<c:url value='/css/styles.css'/>">
+    <script type="text/javascript" src="<c:url value='/js/scripts.js'/>"></script>
     <title>Accident</title>
 </head>
 <body>
@@ -24,6 +25,7 @@
                 <th scope="col">Accident</th>
                 <th scope="col">Statement</th>
                 <th scope="col">Address</th>
+                <th cope="col">Type</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +37,7 @@
                 <td><a title="Click to edit this record" style="text-decoration: none; color: black" href='<c:url value="/edit?id=${accident.id}"/>'><c:out value="${accident.name}"/></a></td>
                 <td><div style="height:150px; overflow: auto"><c:out value="${accident.text}"/></div></td>
                 <td><c:out value="${accident.address}"/></td>
+                <td><c:out value="${accident.type.name}"/></td>
             </tr>
             </c:forEach>
         </tbody>
