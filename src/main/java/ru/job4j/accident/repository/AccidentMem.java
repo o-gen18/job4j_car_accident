@@ -4,23 +4,31 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
-    private Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
-    private AtomicInteger index = new AtomicInteger(0);
+    private final Map<Integer, Accident> accidents = new ConcurrentHashMap<>();
+    private final AtomicInteger index = new AtomicInteger(0);
 
-    private AtomicInteger typeIndex = new AtomicInteger(0);
+    private final AtomicInteger typeIndex = new AtomicInteger(0);
+    private final Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
 
-    private Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
-
-    {
+    public AccidentMem() {
         saveAccidentType(AccidentType.of("Vehicle and human"));
         saveAccidentType(AccidentType.of("Vehicle and vehicle"));
         saveAccidentType(AccidentType.of("Vehicle and bicycle"));
+
+        saveAccident(Accident.of("3 сars crashed",
+                "three cars crashed into each other at an intersection",
+                "Sadovaya 50", types.get(2)));
+
+        saveAccident(Accident.of("scratched car",
+                "cyclist scratched the parked car",
+                "Nevskiy 123", types.get(3)));
     }
 
     public Accident getAccidentById(int id) {
@@ -49,8 +57,8 @@ public class AccidentMem {
         return accidents.remove(accident.getId());
     }
 
-    public Map<Integer, Accident> getAccidents() {
-        return accidents;
+    public Collection<Accident> getAccidents() {
+        return accidents.values();
     }
 
     public AccidentType getTypeById(int id) {
@@ -64,7 +72,7 @@ public class AccidentMem {
         return types.put(type.getId(), type);
     }
 
-    public Map<Integer, AccidentType> getTypes() {
-        return types;
+    public Collection<AccidentType> getTypes() {
+        return types.values();
     }
 }
