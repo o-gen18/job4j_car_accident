@@ -25,7 +25,8 @@
                 <th scope="col">Accident</th>
                 <th scope="col">Statement</th>
                 <th scope="col">Address</th>
-                <th cope="col">Type</th>
+                <th scope="col">Type</th>
+                <th scope="col">Rule</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,15 @@
                 <td><div style="height:150px; overflow: auto"><c:out value="${accident.text}"/></div></td>
                 <td><c:out value="${accident.address}"/></td>
                 <td><c:out value="${accident.type.name}"/></td>
+                <td>
+                    <table>
+                    <c:forEach items="${accident.rules}" var="rule">
+                        <tr>
+                            <td><c:out value="${rule.name}"/></td>
+                        </tr>
+                    </c:forEach>
+                    </table>
+                </td>
             </tr>
             </c:forEach>
         </tbody>

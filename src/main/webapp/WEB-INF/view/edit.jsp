@@ -51,6 +51,16 @@
                         </select></td>
                     </tr>
                     <tr>
+                        <td>Articles of traffic police rules: </td>
+                        <td>
+                            <select name="rIds" multiple>
+                                <c:forEach var="rule" items="${rules}">
+                                    <option value="${rule.id}">${rule.name}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2"><input class="btn btn-outline-primary" name="submit" type="submit" value="Submit"></td>
                     </tr>
                 </table>

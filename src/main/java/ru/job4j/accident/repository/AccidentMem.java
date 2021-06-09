@@ -3,6 +3,7 @@ package ru.job4j.accident.repository;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
 
 import java.util.Collection;
 import java.util.Map;
@@ -17,18 +18,29 @@ public class AccidentMem {
     private final AtomicInteger typeIndex = new AtomicInteger(0);
     private final Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
 
+    private final AtomicInteger ruleIndex = new AtomicInteger(0);
+    private final Map<Integer, Rule> rules = new ConcurrentHashMap<>();
+
     public AccidentMem() {
         saveAccidentType(AccidentType.of("Vehicle and human"));
         saveAccidentType(AccidentType.of("Vehicle and vehicle"));
         saveAccidentType(AccidentType.of("Vehicle and bicycle"));
 
-        saveAccident(Accident.of("3 сars crashed",
-                "three cars crashed into each other at an intersection",
-                "Sadovaya 50", types.get(2)));
+        saveAccidentRule(Rule.of("Article 1"));
+        saveAccidentRule(Rule.of("Article 2"));
+        saveAccidentRule(Rule.of("Article 3"));
 
-        saveAccident(Accident.of("scratched car",
+        Accident accident1 = Accident.of("3 сars crashed",
+                "three cars crashed into each other at an intersection",
+                "Sadovaya 50", types.get(2));
+        accident1.addRule(rules.get(1));
+        saveAccident(accident1);
+
+        Accident accident2 = Accident.of("scratched car",
                 "cyclist scratched the parked car",
-                "Nevskiy 123", types.get(3)));
+                "Nevskiy 123", types.get(3));
+        rules.values().forEach(accident2::addRule);
+        saveAccident(accident2);
     }
 
     public Accident getAccidentById(int id) {
@@ -74,5 +86,20 @@ public class AccidentMem {
 
     public Collection<AccidentType> getTypes() {
         return types.values();
+    }
+
+    public Rule saveAccidentRule(Rule rule) {
+        if (rule.getId() == 0) {
+            rule.setId(ruleIndex.incrementAndGet());
+        }
+        return rules.put(rule.getId(), rule);
+    }
+
+    public Rule getRuleById(int id) {
+        return rules.get(id);
+    }
+
+    public Collection<Rule> getRules() {
+        return rules.values();
     }
 }

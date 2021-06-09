@@ -30,11 +30,23 @@
                     </tr>
                     <tr>
                         <td>Type of the accident: </td>
-                        <td><select name="type.id">
+                        <td>
+                            <select name="type.id">
                             <c:forEach var="type" items="${types}">
                                 <option value="${type.id}">${type.name}</option>
                             </c:forEach>
-                        </select></td>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Articles of traffic police rules: </td>
+                        <td>
+                            <select name="rIds" multiple>
+                            <c:forEach var="rule" items="${rules}">
+                                <option value="${rule.id}">${rule.name}</option>
+                            </c:forEach>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2"><input class="btn btn-outline-primary" name="submit" type="submit" value="Submit"></td>

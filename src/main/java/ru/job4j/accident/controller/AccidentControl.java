@@ -10,6 +10,8 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.repository.AccidentMem;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class AccidentControl {
     private AccidentMem accidents;
@@ -21,13 +23,20 @@ public class AccidentControl {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("types", accidents.getTypes());
+        model.addAttribute("rules", accidents.getRules());
         return "create";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Accident accident) {
+    public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         AccidentType type = accident.getType();
         type.setName(accidents.getTypeById(type.getId()).getName());
+        String[] ids = req.getParameterValues("rIds");
+        if (ids != null) {
+            for (String id: ids) {
+                accident.addRule(accidents.getRuleById(Integer.parseInt(id)));
+            }
+        }
         accidents.saveAccident(accident);
         return "redirect:/";
     }
@@ -36,6 +45,7 @@ public class AccidentControl {
     public String edit(Model model, @RequestParam int id) {
         model.addAttribute("accident", accidents.getAccidentById(id));
         model.addAttribute("types", accidents.getTypes());
+        model.addAttribute("rules", accidents.getRules());
         return "edit";
     }
 }
