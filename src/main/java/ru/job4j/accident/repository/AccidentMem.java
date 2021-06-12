@@ -88,6 +88,12 @@ public class AccidentMem {
         return types.values();
     }
 
+    public Accident findAndSetType(Accident accident) {
+        AccidentType type = accident.getType();
+        type.setName(getTypeById(type.getId()).getName());
+        return accident;
+    }
+
     public Rule saveAccidentRule(Rule rule) {
         if (rule.getId() == 0) {
             rule.setId(ruleIndex.incrementAndGet());
@@ -101,5 +107,14 @@ public class AccidentMem {
 
     public Collection<Rule> getRules() {
         return rules.values();
+    }
+
+    public Accident findAndSetRules(String[] ids, Accident accident) {
+        if (ids != null) {
+            for (String id: ids) {
+                accident.addRule(getRuleById(Integer.parseInt(id)));
+            }
+        }
+        return accident;
     }
 }
