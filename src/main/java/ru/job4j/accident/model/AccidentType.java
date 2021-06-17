@@ -7,6 +7,13 @@ public class AccidentType {
 
     private String name;
 
+    public static AccidentType of(int id, String name) {
+        AccidentType type = new AccidentType();
+        type.id = id;
+        type.name = name;
+        return type;
+    }
+
     public static AccidentType of(String name) {
         AccidentType type = new AccidentType();
         type.name = name;
@@ -40,5 +47,13 @@ public class AccidentType {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "AccidentType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

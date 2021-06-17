@@ -3,9 +3,15 @@ package ru.job4j.accident.model;
 import java.util.Objects;
 
 public class Rule {
-
     private int id;
     private String name;
+
+    public static Rule of(int id, String name) {
+        Rule rule = new Rule();
+        rule.id = id;
+        rule.name = name;
+        return rule;
+    }
 
     public static Rule of(String name) {
         Rule rule = new Rule();
@@ -40,5 +46,13 @@ public class Rule {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Rule{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
