@@ -13,7 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
-@Repository
+/**
+ * Class for saving and retrieving objects from database. Based upon JdbcTemplate.
+ */
+//@Repository
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
 
