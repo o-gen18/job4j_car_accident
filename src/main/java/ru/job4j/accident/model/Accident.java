@@ -20,7 +20,7 @@ public class Accident {
     @JoinColumn(name = "accident_type_id",  foreignKey = @ForeignKey(name = "ACCIDENT_TYPE_ID_FK"))
     private AccidentType type;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     private Set<Rule> rules = new HashSet<>();
 
     public static Accident of(String name, String text, String address, AccidentType type) {

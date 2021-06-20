@@ -17,26 +17,26 @@ public class AccidentHibernate {
 
     public AccidentHibernate(SessionFactory sf) {
         this.sf = sf;
-        List<Rule> rules = List.of(
-                Rule.of("1 Driving passenger cars"),
-                Rule.of("2 Driving a bus"),
-                Rule.of("3 Parking rule")
-        );
-        List<AccidentType> types = List.of(
-                AccidentType.of("1 Vehicle and vehicle"),
-                AccidentType.of("2 Vehicle and human"),
-                AccidentType.of("3 Vehicle and bicycle")
-        );
-        Accident accident = Accident.of("Bus crashed on the crossroad",
-                "Yesterday on the central crossroad a bus full of passengers fell over. No injured.",
-                "Sadovaya 50",
-                types.get(1));
-        accident.addRule(rules.get(1));
-        accident.addRule(rules.get(0));
-
-        rules.forEach(this::save);
-        types.forEach(this::save);
-        this.saveAccident(accident);
+//        List<Rule> rules = List.of(
+//                Rule.of("1 Driving passenger cars"),
+//                Rule.of("2 Driving a bus"),
+//                Rule.of("3 Parking rule")
+//        );
+//        List<AccidentType> types = List.of(
+//                AccidentType.of("1 Vehicle and vehicle"),
+//                AccidentType.of("2 Vehicle and human"),
+//                AccidentType.of("3 Vehicle and bicycle")
+//        );
+//        Accident accident = Accident.of("Bus crashed on the crossroad",
+//                "Yesterday on the central crossroad a bus full of passengers fell over. No injured.",
+//                "Sadovaya 50",
+//                types.get(1));
+//        accident.addRule(rules.get(1));
+//        accident.addRule(rules.get(0));
+//
+//        rules.forEach(this::save);
+//        types.forEach(this::save);
+//        this.saveAccident(accident);
     }
 
     private <T> T doTransaction(final Function<Session, T> command) {

@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.repository.AccidentHibernate;
+import ru.job4j.accident.repository.AccidentRepository;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AccidentControl {
-    private AccidentHibernate accidents;
+    private AccidentRepository accidents;
 
-    public AccidentControl(AccidentHibernate accidents) {
+    public AccidentControl(AccidentRepository accidents) {
         this.accidents = accidents;
     }
 
@@ -30,15 +30,23 @@ public class AccidentControl {
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
 //        accidents.findAndSetType(accident);
         accidents.findAndSetRules(req.getParameterValues("rIds"), accident);
-        accidents.saveAccident(accident);
+        accidents.save(accident);
         return "redirect:/";
     }
 
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam int id) {
-        model.addAttribute("accident", accidents.getAccidentById(id));
+        model.addAttribute("accident", accidents.findById(id).orElse(null));
         model.addAttribute("types", accidents.getTypes());
         model.addAttribute("rules", accidents.getRules());
         return "edit";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam int id) {
+        Accident toDelete = new Accident();
+        toDelete.setId(id);
+        accidents.delete(toDelete);
+        return "redirect:/";
     }
 }
