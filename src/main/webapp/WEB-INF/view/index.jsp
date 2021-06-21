@@ -15,6 +15,7 @@
     <h1 class="h1" align="center" style="display: inline">
         Accident table
     </h1>
+    <a class="btn btn-outline-primary" style="float: right" href="<c:url value='/logout'/>">Logout</a>
     <a class="btn btn-outline-primary" style="float: right" href="<c:url value='/create'/>">Submit a new accident</a>
 </header>
 <div class="container-fluid">
