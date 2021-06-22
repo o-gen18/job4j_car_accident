@@ -10,8 +10,8 @@
 <body>
 <div class="container-fluid">
     <div class="card mx-auto border-0" style="width: 50%">
+        <h2 class="h2 mx-auto" style="display: inline" align="center">Logging in</h2>
         <div class="card-body border border-primary rounded">
-            <h2 class="h2 mx-auto" style="display: inline" align="center">Logging in</h2>
             <c:if test="${not empty errorMessage}">
                 <div style="color: red; font-weight: bold; margin: 30px 0px;" align="center">
                         ${errorMessage}
