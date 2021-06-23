@@ -19,10 +19,10 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    DataSource ds;
+    private DataSource ds;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
