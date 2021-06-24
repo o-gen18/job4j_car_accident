@@ -1,12 +1,12 @@
 package ru.job4j.accident.controller;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.User;
 import ru.job4j.accident.repository.AuthorityRepository;
 import ru.job4j.accident.repository.UserRepository;
@@ -25,15 +25,16 @@ public class RegControl {
 
     @PostMapping("/reg")
     public String save(@ModelAttribute User user, Model model) {
-        if (users.findByUsername(user.getUsername()) != null) {
+        user.setEnabled(true);
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setAuthority(authorities.findByAuthority("ROLE_USER"));
+        try {
+            users.save(user);
+        } catch (DataIntegrityViolationException cve) {
             String errorMessage = "User with such username already exists, choose different!";
             model.addAttribute("errorMessage", errorMessage);
             return reg();
         }
-        user.setEnabled(true);
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setAuthority(authorities.findByAuthority("ROLE_USER"));
-        users.save(user);
         return "redirect:/login";
     }
 
